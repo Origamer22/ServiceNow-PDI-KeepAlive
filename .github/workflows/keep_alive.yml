@@ -23,12 +23,8 @@ jobs:
             -H "Accept: application/json" \
             "$URL/api/now/table/sys_user?sysparm_limit=1")
 
-          echo "Response Code: $HTTP_CODE"
-
           if [ "$HTTP_CODE" -eq 200 ] || [ "$HTTP_CODE" -eq 201 ]; then
-            echo "Success: Instance is awake and active."
             exit 0
           else
-            echo "Error: Ping failed with HTTP status code $HTTP_CODE."
             exit 1
           fi

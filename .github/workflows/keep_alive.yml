@@ -1,0 +1,34 @@
+name: ServiceNow PDI Keep-Alive
+
+on:
+  schedule:
+    # Runs every 90 minutes to beat the 2-hour hibernation timer
+    - cron: '*/90 * * * *'
+  workflow_dispatch: # Enables manual execution from GitHub UI
+
+jobs:
+  ping-instance:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Ping ServiceNow Table API
+        run: |
+          # Strip trailing slashes from the instance URL if present
+          URL="${{ secrets.SN_INSTANCE_URL }}"
+          URL="${URL%/}"
+
+          # Execute a lightweight GET request against the User table
+          HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" \
+            -u "${{ secrets.SN_USERNAME }}:${{ secrets.SN_PASSWORD }}" \
+            -H "Accept: application/json" \
+            "$URL/api/now/table/sys_user?sysparm_limit=1")
+
+          echo "Response Code: $HTTP_CODE"
+
+          if [ "$HTTP_CODE" -eq 200 ] || [ "$HTTP_CODE" -eq 201 ]; then
+            echo "Success: Instance is awake and active."
+            exit 0
+          else
+            echo "Error: Ping failed with HTTP status code $HTTP_CODE."
+            exit 1
+          fi

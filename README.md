@@ -1,6 +1,24 @@
 # ServiceNow PDI Keep-Alive
 
-This repository contains a GitHub Actions workflow that automatically pings your ServiceNow Personal Developer Instance (PDI) every hour to prevent it from hibernating due to inactivity. 
+This repository contains a GitHub Actions workflow that automatically pings your ServiceNow Personal Developer Instance (PDI) every hour to prevent it from hibernating due to inactivity.
+
+Additionally, it features a self-sustaining **auto-commit** mechanism that prevents GitHub from pausing the workflow after 60 days of repository inactivity. 
+
+## Folder Structure
+
+```text
+ServiceNow-PDI-KeepAlive/
+├── .github/
+│   └── workflows/
+│       └── keep_alive.yml     # The GitHub Actions workflow file that does all the work
+├── .gitignore                 # Specifies intentionally untracked files to ignore
+├── LICENSE                    # The license for this project
+└── README.md                  # This file
+```
+
+## Features
+- **Hourly Ping:** A lightweight `curl` request is sent to your PDI every hour to keep it awake.
+- **Set It and Forget It:** GitHub automatically disables scheduled workflows on repositories that have had no commit activity for 60 days. To solve this, this workflow checks the date of your last commit every time it runs. If more than 50 days have passed, it will automatically push a small, empty dummy commit to the repository. This resets GitHub's 60-day timer, ensuring the workflow runs forever without any manual intervention from you!
 
 ## How to make it work
 
@@ -10,9 +28,8 @@ This repository contains a GitHub Actions workflow that automatically pings your
    - `SN_INSTANCE_URL`: The base URL of your instance (e.g., `https://dev12345.service-now.com`)
    - `SN_USERNAME`: Your ServiceNow username (e.g., `admin`)
    - `SN_PASSWORD`: Your ServiceNow password
-4. Go to the **Actions** tab in your repository and enable workflows if prompted.
-5. Click on **ServiceNow PDI Keep-Alive** on the left, click **Run workflow**, and run it once manually to verify it connects successfully.
+4. **Important**: Go to your repository's **Settings** > **Actions** > **General**. Scroll down to **Workflow permissions** and ensure that **Read and write permissions** is selected. This allows the auto-commit feature to push the keep-alive commit!
+5. Go to the **Actions** tab in your repository and enable workflows if prompted.
+6. Click on **ServiceNow PDI Keep-Alive** on the left, click **Run workflow**, and run it once manually to verify it connects successfully.
 
-That's it! GitHub Actions will now run the workflow automatically every hour to keep your instance awake. 
-
-*Note: GitHub requires you to push a commit or manually run a workflow at least once every 60 days to keep scheduled actions active.*
+That's it! GitHub Actions will now run the workflow automatically every hour to keep your instance awake forever.

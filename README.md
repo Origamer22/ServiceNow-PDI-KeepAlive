@@ -1,4 +1,4 @@
-﻿# ServiceNow PDI Keep-Alive
+# ServiceNow PDI Keep-Alive
 
 <div align="center">
   <h2>🇮🇱 We stand with Israel 🇮🇱</h2>
@@ -10,7 +10,7 @@ Additionally, it features a self-sustaining **auto-commit** mechanism that preve
 
 ## Folder Structure
 
-`	ext
+```text
 ServiceNow-PDI-KeepAlive/
 ├── .github/
 │   └── workflows/
@@ -18,7 +18,7 @@ ServiceNow-PDI-KeepAlive/
 ├── .gitignore                 # Specifies intentionally untracked files to ignore
 ├── LICENSE                    # The license for this project
 └── README.md                  # This file
-`
+```
 
 ## Features
 - **2-Hourly Ping:** A lightweight curl request is sent to your PDI every 2 hours to keep it awake.

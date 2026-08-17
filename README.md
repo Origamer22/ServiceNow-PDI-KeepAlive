@@ -31,7 +31,7 @@ ServiceNow-PDI-KeepAlive/
 2. Go to your repository's **Settings** > **Secrets and variables** > **Actions**.
 3. Add the following **Repository secrets**:
    - SN_INSTANCE_URL: The base URL of your instance (e.g., https://dev12345.service-now.com)
-   - SN_USERNAME: Your ServiceNow username (e.g., dmin)
+   - SN_USERNAME: Your ServiceNow username (e.g., admin)
    - SN_PASSWORD: Your ServiceNow password
 4. **Important**: Go to your repository's **Settings** > **Actions** > **General**. Scroll down to **Workflow permissions** and ensure that **Read and write permissions** is selected. This allows the auto-commit feature to push the keep-alive commit!
 5. Go to the **Actions** tab in your repository and enable workflows if prompted.

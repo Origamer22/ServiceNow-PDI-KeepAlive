@@ -2,12 +2,12 @@ name: ServiceNow PDI Keep-Alive
 
 on:
   schedule:
-    # Runs every 2 hours on Sun-Thu
-    - cron: '0 */2 * * 0-4'
-    # Runs every 2 hours on Friday from 00:00 to 09:59 UTC (Ends before Friday 13:00 Israel time)
-    - cron: '0 0,2,4,6,8 * * 5'
-    # Runs every 2 hours on Saturday from 18:00 to 23:59 UTC (Starts from Saturday 21:00 Israel time)
-    - cron: '0 18,20,22 * * 6'
+    # Runs every 1 hour on Sun-Thu
+    - cron: '0 * * * 0-4'
+    # Runs every 1 hour on Friday from 00:00 to 09:59 UTC (Ends before Friday 13:00 Israel time)
+    - cron: '0 0-9 * * 5'
+    # Runs every 1 hour on Saturday from 18:00 to 23:59 UTC (Starts from Saturday 21:00 Israel time)
+    - cron: '0 18-23 * * 6'
   workflow_dispatch: # Enables manual execution from GitHub UI
 
 jobs:
